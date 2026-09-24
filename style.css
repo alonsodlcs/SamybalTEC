@@ -1,0 +1,488 @@
+/* VARIABLES Y PALETA OFICIAL SAMYBAL ELECTRONICA */
+:root {
+    --samy-blue: #002244;
+    --samy-electric-blue: #0056b3;
+    --samy-red: #d90000;
+    --samy-bright-red: #ff1a1a;
+    --samy-dark: #0a0a0f;
+    --samy-light: #f8f9fa;
+    --samy-gray: #e9ecef;
+    --whatsapp-green: #25d366;
+    --facebook-blue: #1877f2;
+    
+    --bg-body: var(--samy-light);
+    --text-color: #212529;
+    --card-bg: #ffffff;
+    --card-border: #dee2e6;
+    --accent-glow: rgba(0, 86, 179, 0.15);
+}
+
+body.gamer-mode {
+    --bg-body: #07070a;
+    --text-color: #f1f1f1;
+    --card-bg: #12121a;
+    --card-border: #2a2a3d;
+    --accent-glow: rgba(255, 26, 26, 0.3);
+    --samy-electric-blue: #00d2ff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding-bottom: 90px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* HEADER */
+header {
+    background-color: #ffffff;
+    border-bottom: 4px solid var(--samy-red);
+    padding: 15px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+body.gamer-mode header {
+    background-color: #0d0d14;
+    border-bottom-color: var(--samy-electric-blue);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* LOGO IMAGEN Y EFECTO MODO OSCURO */
+/* LOGO IMAGEN Y BASE */
+.brand-logo img {
+    height: 75px;
+    width: auto;
+    display: block;
+    transition: transform 0.2s ease, filter 0.3s ease;
+    animation: logoGlow 5s ease-in-out infinite;
+}
+
+/* Definición del resplandor del logo */
+@keyframes logoGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 0px transparent);
+    }
+    50% {
+        filter: drop-shadow(0 0 10px rgba(0, 84, 230, 0.5));
+    }
+}
+
+/* Efecto de zoom al pasar el mouse (hover) */
+.brand-logo img:hover {
+    transform: scale(1.05);
+}
+
+/* INVERSIÓN DE COLORES EN MODO OSCURO (Desactiva la animación para evitar conflictos) */
+body.gamer-mode .brand-logo img {
+    animation: none;
+    filter: invert(1);
+}
+
+/* Ajuste automático de tamaño para dispositivos móviles */
+@media (max-width: 768px) {
+    .brand-logo img {
+        height: 60px;
+    }
+}
+
+.mode-toggle {
+    background: var(--samy-gray);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.gamer-mode .mode-toggle {
+    background: #1f1f2e;
+    color: #fff;
+}
+
+/* CARRUSEL HERO */
+.hero-carousel {
+    position: relative;
+    height: 380px;
+    overflow: hidden;
+    background: #000;
+    border-bottom: 4px solid var(--samy-red);
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+}
+
+.hero-content {
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.badge-tech {
+    background: var(--samy-red);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    transform: translateY(-50%);
+}
+
+.carousel-controls button {
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* CONTENEDOR PRINCIPAL Y PESTAÑAS */
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.category-section {
+    margin-bottom: 50px;
+}
+
+.section-title {
+    font-size: 1.6rem;
+    border-left: 5px solid var(--samy-red);
+    padding-left: 12px;
+    margin-bottom: 5px;
+    transition: border-color 0.3s ease;
+}
+
+body.gamer-mode .section-title {
+    border-left-color: var(--samy-electric-blue);
+}
+
+.section-subtitle {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+/* Pestañas de Canales */
+.channel-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 12px 20px;
+    border: 2px solid var(--card-border);
+    background: var(--card-bg);
+    color: var(--text-color);
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background: var(--samy-electric-blue);
+    color: white;
+    border-color: var(--samy-electric-blue);
+}
+
+/* TARJETAS DE PRODUCTOS */
+.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px var(--accent-glow);
+}
+
+.card-img-wrapper {
+    height: 180px;
+    background-color: #f1f3f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+body.gamer-mode .card-img-wrapper {
+    background-color: #1a1a24;
+}
+
+.card-img-wrapper i {
+    font-size: 4rem;
+    color: var(--samy-electric-blue);
+}
+
+.tag-badge {
+    position: absolute;
+    top: 10px; right: 10px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+}
+
+.tag-badge.new { background: #28a745; }
+.tag-badge.used { background: #fd7e14; }
+
+.card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-title { font-size: 1.2rem; margin-bottom: 8px; }
+.card-desc { font-size: 0.9rem; opacity: 0.85; margin-bottom: 15px; flex-grow: 1; }
+.card-price { font-size: 1.3rem; font-weight: 800; color: var(--samy-red); margin-bottom: 15px; }
+
+.btn-add {
+    background-color: var(--samy-electric-blue);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* CARRITO */
+.cart-summary {
+    background-color: var(--card-bg);
+    border-top: 4px solid var(--whatsapp-green);
+    padding: 20px;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+}
+
+.cart-list { list-style: none; margin: 15px 0; }
+.cart-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--card-border); }
+
+/* BARRA FLOTANTE MÓVIL Y REDES SOCIALES */
+.mobile-whatsapp-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: #ffffff;
+    padding: 10px 20px;
+    border-top: 1px solid var(--card-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+body.gamer-mode .mobile-whatsapp-bar {
+    background: #0d0d14;
+}
+
+.social-contact-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/*ESTILOS PARA BOTONES DE REDES SOCIALES (FACEBOOK Y WHATSAPP)*/
+.social-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #ffffff;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.facebook-btn {
+    background-color: var(--facebook-blue);
+}
+
+.facebook-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 10px rgba(24, 119, 242, 0.5);
+}
+
+.whatsapp-btn {
+    background-color: var(--whatsapp-green);
+}
+
+.whatsapp-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 10px rgba(37, 211, 102, 0.5);
+}
+
+/* BOTÓN ENVÍO DE CARRITO A WHATSAPP */
+.btn-whatsapp-send {
+    width: 100%;
+    background-color: var(--whatsapp-green);
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-whatsapp-send:hover {
+    background-color: #1ebd56;
+    transform: translateY(-2px);
+}
+
+/* BOTÓN FLOTANTE DEL CARRITO */
+.floating-cart-btn {
+    position: fixed;
+    bottom: 85px;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+    background-color: var(--samy-electric-blue);
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    z-index: 1001;
+    
+    /* Estado Oculto Inicial */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.8);
+    pointer-events: none;
+    
+    /* Transición suave para todos los cambios */
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease, background-color 0.3s ease;
+}
+
+/* Estado Visible (Clase que agregará JavaScript) */
+.floating-cart-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.floating-cart-btn:hover {
+    transform: translateY(-3px) scale(1.08);
+    background-color: var(--samy-red);
+}
+
+/* CONTADOR REDONDO (BADGE) */
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--samy-red);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffffff;
+}
+
+body.gamer-mode .floating-cart-btn {
+    background-color: var(--samy-bright-red);
+}
+
+body.gamer-mode .cart-badge {
+    background-color: var(--samy-electric-blue);
+    border-color: #07070a;
+}
