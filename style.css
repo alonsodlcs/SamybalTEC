@@ -486,3 +486,121 @@ body.gamer-mode .cart-badge {
     background-color: var(--samy-electric-blue);
     border-color: #07070a;
 }
+
+/* MODAL OVERLAY */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.modal-content {
+    background: var(--card-bg, #ffffff);
+    color: var(--text-color, #333);
+    border-radius: 12px;
+    max-width: 850px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: inherit;
+}
+
+/* ESTRUCTURA DE 2 COLUMNAS */
+.modal-body {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 25px;
+    align-items: center;
+}
+
+/* CONTENEDOR DE LA IMAGEN EN EL MODAL */
+.modal-img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 300px; /* Limita la altura máxima de la columna */
+    overflow: hidden;
+    background-color: var(--card-bg, #f8f9fa); /* Fondo suave */
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.modal-img-container img {
+    max-width: 100%;
+    max-height: 280px; /* Asegura que la imagen no sobrepase la caja */
+    width: auto;
+    height: auto;
+    object-fit: contain; /* Mantiene la proporción sin deformar ni recortar */
+    display: block;
+    margin: 0 auto;
+}
+
+.modal-specs-list {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.modal-specs-list li {
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+}
+
+/* ADAPTACIÓN MÓVIL */
+@media (max-width: 768px) {
+    .modal-body {
+        grid-template-columns: 1fr; /* Pasa a 1 columna en teléfonos */
+    }
+}
+
+/* CONTENEDOR DE LA IMAGEN EN LA TARJETA DEL CATÁLOGO */
+.card-img-wrapper {
+    width: 100%;
+    height: 180px; /* Altura fija uniforme para todas las tarjetas */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: var(--card-bg-subtle, #f8f9fa);
+    border-radius: 8px 8px 0 0;
+    padding: 12px;
+    position: relative;
+}
+
+/* LA IMAGEN DENTRO DE LA TARJETA DEL CATÁLOGO */
+.card-img-wrapper img,
+.product-thumb-img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important; /* Mantiene la proporción sin deformar */
+    display: block;
+    margin: 0 auto;
+}

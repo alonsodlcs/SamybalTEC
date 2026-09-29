@@ -4,59 +4,128 @@ const SAMY_WHATSAPP_NUMBER = "51936329133"; // Reemplaza con el número de telé
 let cart = [];
 let currentSlide = 0;
 
-// BASE DE DATOS DE COMPUTADORAS SEGÚN CANAL / CATEGORÍA
-const pcDatabase = {
-    oficina: [
-        { title: "PC Hogar & Tareas Básicas", desc: "Navegación fluida, tareas escolares, llamadas Zoom e impresiones.", price: "S/800.00", icon: "fa-desktop" },
-        { title: "PC Oficina Pro Veloz", desc: "Procesador rápido, arranque en segundos y excelente desempeño en Excel masivo.", price: "S/1650.00", icon: "fa-briefcase" }
+// Actualización del objeto catalogDatabase en script.js
+const catalogDatabase = {
+    refrigeracion: [
+        {
+            id: "ref-01",
+            title: "Pasta Térmica Arctic MX-4 (8g)",
+            desc: "Alta conductividad térmica (8.5 W/mK), no conductora de electricidad.",
+            price: "S/ 35.00", // <-- Puedes cambiar el precio aquí
+            tag: "RECOMENDADO",
+            image: "ARCTICMX-4.png", // <-- Foto del producto
+            specs: [
+                "Conductividad térmica: 8.5 W/mK",
+                "Viscosidad: 870 poise",
+                "Densidad: 2.5 g/cm³",
+                "Uso recomendado: Procesadores (CPU) y Tarjetas de Video (GPU)"
+            ]
+        },
+        {
+            id: "ref-02",
+            title: "Pasta Térmica Arctic MX-6 (8g)",
+            desc: "Rendimiento extremo para Overclocking y laptops gamer.",
+            price: "S/ 55.00",
+            tag: "TOP RENDIMIENTO",
+            image: "ARCTICMX-6.png",
+            specs: [
+                "Conductividad térmica: 12.5 W/mK",
+                "Resistencia térmica: 0.0032 K/W",
+                "Temperatura de trabajo: -200 °C / +350 °C",
+                "Ideal para: Laptops Gamer y Overclocking extremo"
+            ]
+        },
+        {   
+            id: "ref-03",
+            title: "Pasta Térmica Arctic MX-7 (8g)",
+            desc: "La mejor pasta térmica para entusiastas y overclockers profesionales.",
+            price: "S/ 75.00",
+            tag: "NUEVO",
+            image: "ARCTICMX-7.png",
+            specs: [
+                "Conductividad térmica: 15.0 W/mK",
+                "Resistencia térmica: 0.0025 K/W",
+                "Temperatura de trabajo: -200 °C / +350 °C",
+                "Ideal para: Overclocking profesional y sistemas de alto rendimiento"
+            ]
+        }
+        // ... Agrega o edita los demás insumos aquí
     ],
-    gamer: [
-        { title: "PC Gamer Gama Entrada (1080p)", desc: "Optimizada para Valorant, Fortnite, CS:GO y League of Legends.", price: "S/2400.00", icon: "fa-gamepad" },
-        { title: "PC Ultra Gamer & Streaming", desc: "Chasis RGB, gráfica dedicada de alta potencia para transmitir y jugar sin tirones.", price: "S/7000.00", icon: "fa-headset" }
-    ],
-    ingenieria: [
-        { title: "Workstation AutoCAD & Planos 2D/3D", desc: "Procesador de alto rendimiento por núcleo y memoria ultrarrápida.", price: "S/7500.00", icon: "fa-compass-drafting" },
-        { title: "Estación de Render 3D & SolidWorks", desc: "Tarjeta gráfica dedicada con soporte CUDA/OpenCL para renderizado exigente.", price: "S/8000.00", icon: "fa-cubes" }
-    ]
+    pcs: [],
+    laptops: [],
+    componentes: [],
+    servicios: []
 };
+    
 
-// CAMBIAR PESTAÑA / CANAL DE ENSAMBLADOS (CORREGIDO PARA EVITAR ERRORES DE EVENTO)
-function switchCategory(categoryKey, element) {
+    // CATEGORÍA ACTIVA: SERVICIOS TÉCNICOS
+    servicios: [
+        {
+            id: "srv-01",
+            title: "Mantenimiento Preventivo de PC / Laptop",
+            category: "servicios",
+            desc: "Limpieza profunda de chasis, cambio de pasta térmica y diagnóstico general de componentes.",
+            price: "S/ 80.00",
+            tag: "TALLER",
+            icon: "fa-screwdriver-wrench"
+        },
+        {
+            id: "srv-02",
+            title: "Mantenimiento de Impresoras EcoTank",
+            category: "servicios",
+            desc: "Limpieza de inyectores, cambio de almohadillas y descarte de atascos mecánicos.",
+            price: "Cotización",
+            tag: "TALLER",
+            icon: "fa-print"
+        }
+    ]
+
+
+// FUNCIÓN PARA RENDERIZAR LOS PRODUCTOS DE CADA CATEGORÍA
+function showCategory(categoryKey, btnElement) {
+    // Actualizar clase activa en los botones de pestaña
     const buttons = document.querySelectorAll('.tab-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
-    
-    if (element) {
-        element.classList.add('active');
-    } else if (buttons.length > 0) {
-        buttons[0].classList.add('active');
-    }
+    if (btnElement) btnElement.classList.add('active');
 
-    const container = document.getElementById('pcsGrid');
+    const container = document.getElementById('catalogGrid');
     if (!container) return;
-    
-    container.innerHTML = '';
 
-    const items = pcDatabase[categoryKey];
-    if (items) {
-        items.forEach(item => {
-            const cardHTML = `
-                <div class="card">
-                    <div class="card-img-wrapper">
-                        <i class="fa-solid ${item.icon}"></i>
-                    </div>
-                    <div class="card-body">
-                        <h3 class="card-title">${item.title}</h3>
-                        <p class="card-desc">${item.desc}</p>
-                        <div class="card-price">${item.price}</div>
-                        <button class="btn-add" onclick="addToCart('${item.title}', '${item.price}')">
-                            <i class="fa-solid fa-cart-plus"></i> Añadir al Pedido
-                        </button>
-                    </div>
-                </div>
-            `;
-            container.innerHTML += cardHTML;
-        });
+    container.innerHTML = '';
+    const items = catalogDatabase[categoryKey];
+
+    // Si la categoría no tiene productos aún (está vacía)
+    if (!items || items.length === 0) {
+        container.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 40px; opacity: 0.7;">
+                <i class="fa-solid fa-boxes-packing" style="font-size: 3rem; margin-bottom: 15px; color: var(--samy-electric-blue);"></i>
+                <h3>Próximamente más modelos disponibles</h3>
+                <p>Estamos actualizando nuestro stock de esta sección. ¡Consúltanos por WhatsApp!</p>
+            </div>
+        `;
+        return;
     }
+
+    // Renderizado dinámico de tarjetas
+    items.forEach(item => {
+    const cardHTML = `
+    <div class="card" onclick="openProductModal('${item.id}', '${categoryKey}')">
+        <div class="card-img-wrapper">
+            <img src="${item.image}" alt="${item.title}" class="product-thumb-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/300?text=SamybalTech';">
+            ${item.tag ? `<span class="tag-badge new">${item.tag}</span>` : ''}
+        </div>
+        <div class="card-body">
+            <h3 class="card-title">${item.title}</h3>
+            <p class="card-desc">${item.desc}</p>
+            <div class="card-price">${item.price}</div>
+            <button class="btn-add" onclick="event.stopPropagation(); addToCart('${item.title}', '${item.price}')">
+                <i class="fa-solid fa-cart-plus"></i> Añadir al Pedido
+            </button>
+        </div>
+    </div>
+`;
+    container.innerHTML += cardHTML;
+});
 }
 
 // FUNCIONALIDAD DEL CARRITO
@@ -200,5 +269,54 @@ function toggleDarkMode() {
 
 // INICIALIZAR VISTA PREDETERMINADA AL CARGAR
 document.addEventListener('DOMContentLoaded', () => {
-    switchCategory('oficina');
+    const firstTab = document.querySelector('.tab-btn.active');
+    showCategory('refrigeracion', firstTab);
 });
+
+// Abrir el Modal con los datos del producto
+function openProductModal(productId, categoryKey) {
+    const product = catalogDatabase[categoryKey]?.find(item => item.id === productId);
+    if (!product) return;
+
+    document.getElementById('modalProductImg').src = product.image;
+    document.getElementById('modalProductTitle').textContent = product.title;
+    document.getElementById('modalProductPrice').textContent = product.price;
+    document.getElementById('modalProductDesc').textContent = product.desc;
+
+    // Cargar Etiqueta
+    const tagElem = document.getElementById('modalProductTag');
+    if (product.tag) {
+        tagElem.textContent = product.tag;
+        tagElem.style.display = 'inline-block';
+    } else {
+        tagElem.style.display = 'none';
+    }
+
+    // Cargar Lista de Especificaciones
+    const specsList = document.getElementById('modalProductSpecs');
+    specsList.innerHTML = '';
+    if (product.specs && product.specs.length > 0) {
+        product.specs.forEach(spec => {
+            const li = document.createElement('li');
+            li.textContent = spec;
+            specsList.appendChild(li);
+        });
+    } else {
+        specsList.innerHTML = '<li>Consultar más detalles técnicos por WhatsApp.</li>';
+    }
+
+    // Configurar el botón del modal para agregar al carrito
+    const addBtn = document.getElementById('modalAddToCartBtn');
+    addBtn.onclick = () => {
+        addToCart(product.title, product.price);
+        closeProductModal();
+    };
+
+    // Mostrar modal
+    document.getElementById('productModal').classList.add('active');
+}
+
+// Cerrar el Modal
+function closeProductModal() {
+    document.getElementById('productModal').classList.remove('active');
+}
